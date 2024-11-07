@@ -13,16 +13,61 @@ body {
     background-color: #f0f8ff;
 }
 
+/* Estilo da tela de introdução */
+.menu-intro {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: #e0f7fa;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.menu-intro h2 {
+    margin-top: 15px;
+    color: #333;
+}
+
+.menu-intro label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.menu-intro input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.menu-intro button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.menu-intro button:hover {
+    background-color: #45a049;
+}
+
+
 .container {
     text-align: center;
 }
 
 h1 {
-    color: #333;
-    margin-bottom: 20px;
+    margin-top: 50px; /* Ajuste o valor até que fique bom */
 }
 
 #jogo {
+    padding-top: 30px;
     display: flex;
     gap: 20px;
 }
@@ -237,7 +282,39 @@ h1 {
 }
 
 .celula.mina {
-    background-color: #ffa500; /* Cor para minas */
+    background-color: transparent; /* Torna a célula com mina invisível */
+}
+
+.celula.mina.activated {
+    background-color: yellow; /* Cor que aparecerá quando a mina for ativada */
+}
+
+/* Estilos para a div de salvar e carregar */
+.salvar-carregar {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10; /* Para garantir que fique sobre outros elementos */
+}
+
+.salvar-carregar button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.salvar-carregar {
+    position: absolute;
+    top: 90px; /* Ajuste esse valor para garantir que o botão de salvar fique abaixo do título */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
 }
 
 
