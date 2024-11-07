@@ -1,3 +1,16 @@
+document.getElementById("iniciar-jogo").addEventListener("click", () => {
+  const nomeJogador1 = document.getElementById("nome-jogador1").value || "Jogador 1";
+  const nomeJogador2 = document.getElementById("nome-jogador2").value || "Jogador 2";
+
+  // Define os nomes dos jogadores na interface do jogo
+  document.getElementById("nome-exibido-jogador1").innerText = nomeJogador1;
+  document.getElementById("nome-exibido-jogador2").innerText = nomeJogador2;
+
+  // Esconde a tela de introdução e mostra a tela do jogo
+  document.getElementById("introducao").style.display = "none";
+  document.getElementById("tela-jogo").style.display = "block";
+});
+
 const tabuleiro1 = document.getElementById("tabuleiro-jogador1");
 const tabuleiro2 = document.getElementById("tabuleiro-jogador2");
 const mensagem = document.getElementById("mensagem");
@@ -82,7 +95,16 @@ function atacar(id, linha, coluna, celula) {
     celula.classList.add("mina");
     celula.style.backgroundColor = "yellow"; // A célula da mina fica amarela
     mensagem.innerText = "Você ativou uma mina! O turno passa para o outro jogador por duas rodadas.";
-    turnosPerdidos = 2; // O jogador atual perde 2 turnos
+
+    // Agora quem colocou a mina no tabuleiro adversário perde os turnos
+    if (turno === 1) {
+      // Jogador 1 perde 2 turnos
+      turnosPerdidos = 2;
+    } else {
+      // Jogador 2 perde 2 turnos
+      turnosPerdidos = 2;
+    }
+
     proximoTurno(); // Passa o turno para o outro jogador
     return; // Retorna para evitar a verificação de vitória nesta fase
   }
@@ -100,21 +122,27 @@ function verificarVitoria(tabuleiro) {
   }
 }
 
-// Alterna o turno
+// Função para passar o turno
 function proximoTurno() {
-  // Verifica se o jogador atual perdeu turnos
   if (turnosPerdidos > 0) {
+    // Se o jogador está impossibilitado de jogar, ele perde o turno
     mensagem.innerText += ` Jogador ${turno} está impossibilitado de jogar.`;
-    turnosPerdidos--;
+    turnosPerdidos--; // Diminui o contador de turnos perdidos
+    // Não muda o turno ainda, o jogador ainda perde turnos
   } else {
-    turno = turno === 1 ? 2 : 1; // Passa o turno entre os jogadores
+    // Se não há turnos perdidos, o turno muda normalmente
+    turno = turno === 1 ? 2 : 1;
     atualizarMensagemTurno();
   }
 }
-
 // Atualiza a mensagem que indica de quem é a vez
 function atualizarMensagemTurno() {
-  mensagem.innerText += ` É a vez do Jogador ${turno}.`;
+  mensagem.innerText = `É a vez do Jogador ${turno}.`;
+}
+
+// Função para inicializar os turnos e verificar se o jogador pode agir
+function verificarTurnoJogador(id) {
+  return id === turno && turnosPerdidos === 0;  // Verifica se é a vez do jogador e se ele não tem turnos perdidos
 }
 
 // Adiciona dinheiro ao jogador após um ataque certo
@@ -179,11 +207,11 @@ function usarMina(jogador) {
 
   const minaIndex = inventario.indexOf("Mina");
   if (minaIndex !== -1) {
-    inventario.splice(minaIndex, 1);
+    inventario.splice(minaIndex, 1); // Remove a mina do inventário
     atualizarInventario(jogador);
     mensagem.innerText = `Jogador ${jogador} usou uma mina!`;
     const adversario = jogador === 1 ? 2 : 1;
-    posicionarMina(adversario);
+    posicionarMina(adversario); // Posiciona a mina no tabuleiro do adversário
   } else {
     mensagem.innerText = `Jogador ${jogador} não tem minas no inventário!`;
   }
@@ -191,27 +219,21 @@ function usarMina(jogador) {
 
 // Função para posicionar a mina no tabuleiro do adversário
 function posicionarMina(jogadorAdversario) {
-    const tabuleiroAdversario = jogadorAdversario === 1 ? tabuleiroJogador1 : tabuleiroJogador2;
-    const tabuleiroVisual = jogadorAdversario === 1 ? tabuleiro1 : tabuleiro2;
-    let colocado = false;
-  
-    while (!colocado) {
-      const linha = Math.floor(Math.random() * 10);
-      const coluna = Math.floor(Math.random() * 10);
-  
-      // Verifica se a posição está livre no tabuleiro do adversário
-      if (tabuleiroAdversario[linha][coluna] === "~") {
-        tabuleiroAdversario[linha][coluna] = "M"; // Marca a célula como mina no tabuleiro lógico
-  
-        // Marca a célula visualmente como mina
-        const celula = tabuleiroVisual.querySelector(`.celula[data-linha="${linha}"][data-coluna="${coluna}"]`);
-        celula.classList.add("mina");
-        celula.style.backgroundColor = "yellow"; // A célula da mina fica amarela
-        colocado = true;
-      }
+  const tabuleiroAdversario = jogadorAdversario === 1 ? tabuleiroJogador2 : tabuleiroJogador1;  // Corrigido para o adversário
+  const tabuleiroVisual = jogadorAdversario === 1 ? tabuleiro2 : tabuleiro1; // A referência visual deve ser do tabuleiro adversário
+  let colocado = false;
+
+  while (!colocado) {
+    const linha = Math.floor(Math.random() * 10);
+    const coluna = Math.floor(Math.random() * 10);
+
+    // Posiciona a mina no tabuleiro do adversário de forma invisível
+    if (tabuleiroAdversario[linha][coluna] === "~") {
+      tabuleiroAdversario[linha][coluna] = "M"; // Marca a célula como mina (invisível no início)
+      colocado = true;
     }
   }
-  
+}
 
 // Cria o menu de compras
 function criarMenuCompras() {
