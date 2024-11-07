@@ -7,7 +7,39 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
+  <!-- Tela de Introdução -->
+  <div id="introducao" class="container">
+    <h1>Batalha Naval</h1>
+    <div class="menu-intro">
+      <h2>Configuração do Jogo</h2>
+      <label for="nome-jogador1">Nome do Jogador 1:</label>
+      <input type="text" id="nome-jogador1" placeholder="Jogador 1">
+      
+      <label for="nome-jogador2">Nome do Jogador 2:</label>
+      <input type="text" id="nome-jogador2" placeholder="Jogador 2">
+
+      <h2>Instruções</h2>
+      <p>Cada jogador deve tentar afundar os navios do adversário ao clicar em células no tabuleiro. Ganhe dinheiro com acertos e use para comprar itens estratégicos!</p>
+
+      <h2>Regras</h2>
+      <ul>
+        <li>Um acerto em um navio adiciona 10 moedas ao jogador.</li>
+        <li>Itens especiais, como "Cura" e "Mina", podem ser comprados no menu e usados durante o jogo.</li>
+        <li>Ao ativar uma mina, o jogador adversário perde dois turnos.</li>
+      </ul>
+      
+      <button id="iniciar-jogo">Iniciar Jogo</button>
+    </div>
+  </div>
+
+  <!-- Tela do Jogo (oculta inicialmente) -->
+  <div id="tela-jogo" class="container" style="display: none;">
+    <!-- Botões de salvar e carregar no topo -->
+    <div class="salvar-carregar">
+      <button id="salvar-jogo">Salvar Jogo</button>
+      <button id="carregar-jogo">Carregar Jogo</button>
+    </div>
+
     <h1>Batalha Naval</h1>
     <div id="jogo">
       <div class="compras">
@@ -27,13 +59,13 @@
         <div class="jogador">
           <div id="tabuleiro-jogador1" class="tabuleiro"></div>
           <p id="dinheiro-jogador1">Dinheiro: 0</p>
-          <p class="jogador-nome">Jogador 1</p>
+          <p class="jogador-nome" id="nome-exibido-jogador1">Jogador 1</p>
           <div class="inventario" id="inventario-jogador1"></div>
         </div>
         <div class="jogador">
           <div id="tabuleiro-jogador2" class="tabuleiro"></div>
           <p id="dinheiro-jogador2">Dinheiro: 0</p>
-          <p class="jogador-nome">Jogador 2</p>
+          <p class="jogador-nome" id="nome-exibido-jogador2">Jogador 2</p>
           <div class="inventario" id="inventario-jogador2"></div>
         </div>
       </div>
@@ -41,6 +73,8 @@
     <p id="mensagem"></p>
     <button id="botao-turno">Próximo Turno</button>
   </div>
+
   <script src="script.js"></script>
+  <script src="save.js"></script>
 </body>
 </html>
