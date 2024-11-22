@@ -1,0 +1,199 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f8ff;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#jogo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 10px;
+}
+
+.compras {
+    text-align: left;
+    margin-right: 20px;
+    flex: 1 1 200px; /* Torna a área de compras flexível */
+}
+
+.jogador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 200px;
+}
+
+.tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 2px;
+}
+
+.celula {
+    width: 40px;
+    height: 40px;
+    background-color: #1e90ff;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+.celula.acertou {
+    background-color: #ff6347;
+}
+
+.celula.errou {
+    background-color: #dcdcdc;
+}
+
+/* Inventário de itens */
+.inventario {
+    display: grid;
+    grid-template-columns: repeat(3, 40px);
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.item {
+    width: 40px;
+    height: 40px;
+    background-color: #ffd700; /* Cor para itens */
+    border: 1px solid #000;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mensagem {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#botao-turno {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#botao-turno:hover {
+    background-color: #45a049;
+}
+
+/* Estilo para o dinheiro */
+#dinheiro-jogador1, #dinheiro-jogador2 {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilo das células com mina */
+.celula.mina {
+    background-color: transparent; /* Torna a célula com mina invisível */
+}
+
+.celula.mina.activated {
+    background-color: yellow; /* Cor que aparecerá quando a mina for ativada */
+}
+
+/* Media Queries para Responsividade */
+
+/* Telas menores (como dispositivos móveis) */
+@media (max-width: 600px) {
+    #jogo {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .compras,
+    .jogador {
+        margin-bottom: 20px;
+        width: 100%; /* Faz com que o menu de compras e os tabuleiros ocupem toda a largura disponível */
+        text-align: center;
+    }
+
+    .tabuleiro {
+        grid-template-columns: repeat(8, 35px); /* Reduz o tamanho das células */
+        grid-template-rows: repeat(8, 35px);
+        gap: 1px;
+    }
+
+    .celula {
+        width: 35px;
+        height: 35px;
+    }
+
+    .inventario {
+        grid-template-columns: repeat(3, 35px);
+    }
+
+    .item {
+        width: 35px;
+        height: 35px;
+    }
+
+    #mensagem {
+        font-size: 14px;
+    }
+
+    #botao-turno {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+/* Telas médias (como tablets em modo paisagem) */
+@media (max-width: 900px) {
+    .tabuleiro {
+        grid-template-columns: repeat(8, 40px); /* Ajusta a largura das células */
+        grid-template-rows: repeat(8, 40px);
+    }
+
+    .celula {
+        width: 40px;
+        height: 40px;
+    }
+
+    .inventario {
+        grid-template-columns: repeat(3, 40px); /* Mantém o inventário com 3 itens visíveis */
+    }
+
+    .item {
+        width: 40px;
+        height: 40px;
+    }
+
+    #botao-turno {
+        width: 100%;
+    }
+}
+
+.mina-oculta {
+    background-color: gray; /* Ou qualquer estilo para "ocultar" a mina */
+}
+.mina {
+    background-color: red; /* Exibe a mina com um estilo diferente quando atingida */
+}
