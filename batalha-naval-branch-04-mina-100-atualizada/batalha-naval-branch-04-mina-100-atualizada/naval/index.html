@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batalha Naval</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Tela Inicial -->
+  <div id="tela-inicial" class="tela-inicial">
+    <h1>Batalha Naval</h1>
+    <label for="nome-jogador1">Jogador 1:</label>
+    <input type="text" id="nome-jogador1" placeholder="Digite o nome do Jogador 1">
+    <br>
+    <label for="nome-jogador2">Jogador 2:</label>
+    <input type="text" id="nome-jogador2" placeholder="Digite o nome do Jogador 2">
+    <br><br>
+    <label for="tamanho-mapa">Escolha o tamanho do mapa:</label>
+    <select id="tamanho-mapa">
+      <option value="8">Pequeno (8x8)</option>
+      <option value="10">Normal (10x10)</option>
+      <option value="12">Grande (12x12)</option>
+    </select>
+    <br><br>
+    <button id="iniciar-jogo">Iniciar Jogo</button>
+    <div id="mensagem"></div>
+  </div>
+
+  <!-- Tela do Jogo -->
+  <div id="jogo" class="container" style="display: none;">
+    <h1>Batalha Naval</h1>
+    <div id="jogo-informacoes">
+      <div id="dinheiro-jogador1">Dinheiro: 0</div>
+      <div id="dinheiro-jogador2">Dinheiro: 0</div>
+    </div>
+    <div id="jogo">
+      <div class="compras">
+        <h2>Menu de Compras</h2>
+        <table id="itens-disponiveis">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Preço</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="jogador">
+        <div id="tabuleiro-jogador1" class="tabuleiro"></div>
+        <div class="inventario" id="inventario-jogador1"></div>
+        <p id="dinheiro-jogador1">Dinheiro: 0</p>
+      </div>
+      <div class="jogador">
+        <div id="tabuleiro-jogador2" class="tabuleiro"></div>
+        <div class="inventario" id="inventario-jogador2"></div>
+        <p id="dinheiro-jogador2">Dinheiro: 0</p>
+      </div>
+    </div>
+    <p id="mensagem"></p>
+    <button id="botao-turno">Próximo Turno</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

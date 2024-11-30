@@ -1,0 +1,472 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f8ff;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#jogo {
+    display: flex;
+    gap: 20px;
+}
+
+.compras {
+    text-align: left;
+    margin-right: 20px; /* Espaçamento entre o menu de compras e os tabuleiros */
+}
+
+.jogador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 2px;
+}
+
+.celula {
+    width: 40px;
+    height: 40px;
+    background-color: #1e90ff;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+.celula.acertou {
+    background-color: #ff6347;
+}
+
+.celula.errou {
+    background-color: #dcdcdc;
+}
+
+.inventario {
+    display: grid;
+    grid-template-columns: repeat(3, 40px); /* 3 slots */
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.item {
+    width: 40px;
+    height: 40px;
+    background-color: #ffd700; /* Cor para itens */
+    border: 1px solid #000;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#itens-disponiveis {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+#mensagem {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#botao-turno {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#botao-turno:hover {
+    background-color: #45a049;
+}
+
+/* Estilo para o dinheiro */
+#dinheiro-jogador1, #dinheiro-jogador2 {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f8ff;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#jogo {
+    display: flex;
+    gap: 20px;
+}
+
+.compras {
+    text-align: left;
+    margin-right: 20px; /* Espaçamento entre o menu de compras e os tabuleiros */
+}
+
+#itens-disponiveis {
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#itens-disponiveis th, #itens-disponiveis td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#itens-disponiveis th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#itens-disponiveis td {
+    background-color: #f9f9f9;
+}
+
+.jogador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 2px;
+}
+
+.celula {
+    width: 40px;
+    height: 40px;
+    background-color: #1e90ff;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+.celula.acertou {
+    background-color: #ff6347;
+}
+
+.celula.errou {
+    background-color: #dcdcdc;
+}
+
+.inventario {
+    display: grid;
+    grid-template-columns: repeat(3, 40px); /* 3 slots */
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.item {
+    width: 40px;
+    height: 40px;
+    background-color: #ffd700; /* Cor para itens */
+    border: 1px solid #000;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mensagem {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#botao-turno {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#botao-turno:hover {
+    background-color: #45a049;
+}
+
+/* Estilo para o dinheiro */
+#dinheiro-jogador1, #dinheiro-jogador2 {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.celula.mina {
+    background-color: #ffa500; /* Cor para minas */
+}
+
+/* Estilo para a tela inicial */
+.tela-inicial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f8ff;
+}
+
+.tela-inicial h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.tela-inicial label {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.tela-inicial input, .tela-inicial select {
+    padding: 10px;
+    font-size: 1rem;
+    margin: 5px;
+    width: 200px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.tela-inicial button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.tela-inicial button:hover {
+    background-color: #45a049;
+}
+
+/* Estilo para a tela do jogo */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f8ff;
+}
+
+#jogo {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabuleiro {
+    display: grid;
+    gap: 2px;
+    margin-top: 20px;
+}
+
+.celula {
+    background-color: #1e90ff;
+    border: 1px solid #000;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+.celula.acertou {
+    background-color: #ff6347;
+}
+
+.celula.errou {
+    background-color: #dcdcdc;
+}
+
+#botao-turno {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#botao-turno:hover {
+    background-color: #45a049;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f8ff;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.tela-inicial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tela-inicial input, .tela-inicial select {
+    padding: 10px;
+    font-size: 1rem;
+    margin: 5px;
+    width: 200px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.tela-inicial button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.tela-inicial button:hover {
+    background-color: #45a049;
+}
+
+.container {
+    width: 100%;
+    padding: 20px;
+}
+
+#tabuleiros {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.jogador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-gap: 2px;
+    margin-top: 10px;
+}
+
+.celula {
+    width: 40px;
+    height: 40px;
+    background-color: #1e90ff;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+.celula.acertou {
+    background-color: #ff6347;
+}
+
+.celula.errou {
+    background-color: #dcdcdc;
+}
+
+#botao-turno {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#botao-turno:hover {
+    background-color: #45a049;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .tabuleiro {
+        grid-template-columns: repeat(8, 30px);
+    }
+
+    .celula {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tabuleiro {
+        grid-template-columns: repeat(6, 25px);
+    }
+
+    .celula {
+        width: 25px;
+        height: 25px;
+    }
+}
