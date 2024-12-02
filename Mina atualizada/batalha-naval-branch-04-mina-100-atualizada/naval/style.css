@@ -40,18 +40,17 @@ h1 {
 
 .tabuleiro {
     display: grid;
-    grid-template-columns: repeat(10, 40px);
-    grid-template-rows: repeat(10, 40px);
-    gap: 2px;
-}
-
-.celula {
-    width: 40px;
-    height: 40px;
-    background-color: #1e90ff;
-    border: 1px solid #000;
-    cursor: pointer;
-}
+    gap: 1px;
+    border: 2px solid black;
+    margin: 10px;
+  }
+  
+  .celula {
+    width: 30px;
+    height: 30px;
+    background-color: blue; /* Cor das células não clicadas */
+    border: 1px solid #aaa;
+  }
 
 .celula.acertou {
     background-color: #ff6347;
@@ -65,7 +64,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(3, 40px); /* 3 slots */
     gap: 5px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .item {
@@ -137,8 +136,8 @@ h1 {
 
 #jogo {
     display: flex;
-    gap: 20px;
-}
+    justify-content: space-between;
+  }
 
 .compras {
     text-align: left;
@@ -155,14 +154,9 @@ h1 {
     padding: 8px;
 }
 
-#itens-disponiveis th {
-    background-color: #4CAF50;
-    color: white;
-}
-
-#itens-disponiveis td {
-    background-color: #f9f9f9;
-}
+#itens-disponiveis th, #itens-disponiveis td {
+    padding: 10px;
+  }
 
 .jogador {
     display: flex;
@@ -176,6 +170,11 @@ h1 {
     grid-template-rows: repeat(10, 40px);
     gap: 2px;
 }
+
+#tabuleiro-jogador1, #tabuleiro-jogador2 {
+    width: 100%;
+    max-width: 500px;
+  }
 
 .celula {
     width: 40px;
@@ -240,4 +239,25 @@ h1 {
     background-color: #ffa500; /* Cor para minas */
 }
 
+.mina {
+    background-color: yellow; /* Cor para a célula com a mina */
+    position: relative;
+  }
+  
+  .mina::after {
+    content: "M"; /* Exibe um "M" para representar a mina */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    color: red;
+  }
 
+/* Estilo para as células reveladas pelo Radar */
+.celula.radar {
+    background-color: rgba(255, 255, 0, 0.5); /* Cor amarela semi-transparente para destacar */
+    border: 2px solid red; /* Bordas vermelhas para reforçar o destaque */
+  }
+  
+  

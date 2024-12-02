@@ -11,8 +11,9 @@ let dinheiroJogador1 = 0;
 let dinheiroJogador2 = 0;
 const inventarioJogador1 = [];
 const inventarioJogador2 = [];
-let turnosPerdidosJogador1 = 0;
-let turnosPerdidosJogador2 = 0;
+
+// Contador de turnos perdidos
+let turnosPerdidos = 0;
 
 // Itens disponíveis para compra
 const itensDisponiveis = [
@@ -59,61 +60,70 @@ function posicionarNavios(matriz) {
   });
 }
 
-// Função de ataque
+// Função de ataque ajustada para restringir a interação apenas no tabuleiro do jogador
 function atacar(id, linha, coluna, celula) {
-  if (turnosPerdidosJogador1 > 0 && id === 1) {
-    turnosPerdidosJogador1--;
-    mensagem.innerText = `Jogador 1 está perdendo um turno. ${turnosPerdidosJogador1} turnos restantes.`;
-    return;
-  }
-  
-  if (turnosPerdidosJogador2 > 0 && id === 2) {
-    turnosPerdidosJogador2--;
-    mensagem.innerText = `Jogador 2 está perdendo um turno. ${turnosPerdidosJogador2} turnos restantes.`;
-    return;
+  if (id !== turno || celula.classList.contains("acertou") || celula.classList.contains("errou")) {
+    return; // O jogador não pode atacar se não for sua vez ou se já clicou nessa célula
   }
 
-  const tabuleiro = id === 1 ? tabuleiroJogador2 : tabuleiroJogador1;
+  const tabuleiroAdversario = turno === 1 ? tabuleiroJogador2 : tabuleiroJogador1;
 
-  // Verifica se o jogador clicou em uma mina
-  if (tabuleiro[linha][coluna] === "M") {
-    celula.classList.add("mina"); // Muda a cor da célula para amarelo
-    mensagem.innerText = `Jogador ${id} clicou em uma mina! Você perdeu 2 turnos!`;
-    // Aplica a penalização de turnos
-    if (id === 1) {
-      turnosPerdidosJogador1 += 2;
-    } else {
-      turnosPerdidosJogador2 += 2;
-    }
-    return;
-  }
-
-  // Verifica se o ataque acerta um navio
-  if (tabuleiro[linha][coluna] === "N") {
+  // Verifica se o ataque está sendo realizado no tabuleiro adversário
+  if (tabuleiroAdversario[linha][coluna] === "N") {
     celula.classList.add("acertou");
-    tabuleiro[linha][coluna] = "X"; // Marca a célula como atingida
+    tabuleiroAdversario[linha][coluna] = "X";
     mensagem.innerText = "Acertou um navio!";
-    adicionarDinheiro(id, 10); // Adiciona 10 moedas ao jogador
-  } else {
+    adicionarDinheiro(turno, 10);
+  } else if (tabuleiroAdversario[linha][coluna] === "~") {
     celula.classList.add("errou");
-    tabuleiro[linha][coluna] = "O"; // Marca a célula como errada
+    tabuleiroAdversario[linha][coluna] = "O";
     mensagem.innerText = "Errou!";
+  } else if (tabuleiroAdversario[linha][coluna] === "M") {
+    celula.classList.add("mina");
+    celula.style.backgroundColor = "yellow"; // A célula da mina fica amarela
+    mensagem.innerText = "Você ativou uma mina! O turno passa para o outro jogador por duas rodadas.";
+    turnosPerdidos = 2; // O jogador atual perde 2 turnos
+    proximoTurno(); // Passa o turno para o outro jogador
+    return; // Retorna para evitar a verificação de vitória nesta fase
   }
 
-  // Verifica se o jogador venceu
-  if (tabuleiro.flat().every(c => c !== "N")) {
-    mensagem.innerText = `Jogador ${id} venceu!`;
+  verificarVitoria(tabuleiroAdversario);
+  proximoTurno(); // Passa o turno após a ação do ataque
+}
+
+// Verifica se o jogador venceu
+function verificarVitoria(tabuleiro) {
+  // Verifica se todos os navios foram atingidos
+  if (tabuleiro.flat().every(c => c !== "N" && c !== "M")) {
+    mensagem.innerText = `Jogador ${turno} venceu!`;
     botaoTurno.disabled = true;
   }
+}
+
+// Alterna o turno
+function proximoTurno() {
+  // Verifica se o jogador atual perdeu turnos
+  if (turnosPerdidos > 0) {
+    mensagem.innerText += ` Jogador ${turno} está impossibilitado de jogar.`;
+    turnosPerdidos--;
+  } else {
+    turno = turno === 1 ? 2 : 1; // Passa o turno entre os jogadores
+    atualizarMensagemTurno();
+  }
+}
+
+// Atualiza a mensagem que indica de quem é a vez
+function atualizarMensagemTurno() {
+  mensagem.innerText += ` É a vez do Jogador ${turno}.`;
 }
 
 // Adiciona dinheiro ao jogador após um ataque certo
 function adicionarDinheiro(jogador, quantidade) {
   if (jogador === 1) {
-    dinheiroJogador1 += quantidade; // Adiciona a quantidade de dinheiro ao jogador 1
+    dinheiroJogador1 += quantidade;
     document.getElementById("dinheiro-jogador1").innerText = `Dinheiro: ${dinheiroJogador1}`;
   } else {
-    dinheiroJogador2 += quantidade; // Adiciona a quantidade de dinheiro ao jogador 2
+    dinheiroJogador2 += quantidade;
     document.getElementById("dinheiro-jogador2").innerText = `Dinheiro: ${dinheiroJogador2}`;
   }
 }
@@ -148,15 +158,15 @@ function comprarItem(jogador, preco, item) {
 // Atualiza o inventário na interface
 function atualizarInventario(jogador) {
   const inventarioDiv = document.getElementById(`inventario-jogador${jogador}`);
-  inventarioDiv.innerHTML = ''; // Limpa o inventário
+  inventarioDiv.innerHTML = '';
   const inventario = jogador === 1 ? inventarioJogador1 : inventarioJogador2;
   inventario.forEach(item => {
     const itemDiv = document.createElement("div");
     itemDiv.classList.add("item");
-    itemDiv.innerText = item; // Adiciona o nome do item
+    itemDiv.innerText = item;
     itemDiv.addEventListener("click", () => {
       if (item === "Mina") {
-        usarMina(jogador); // Usa a mina se o jogador clicar nela
+        usarMina(jogador);
       }
     });
     inventarioDiv.appendChild(itemDiv);
@@ -167,37 +177,41 @@ function atualizarInventario(jogador) {
 function usarMina(jogador) {
   const inventario = jogador === 1 ? inventarioJogador1 : inventarioJogador2;
 
-  // Verifica se o jogador tem uma mina no inventário
   const minaIndex = inventario.indexOf("Mina");
   if (minaIndex !== -1) {
-    // Remove a mina do inventário
     inventario.splice(minaIndex, 1);
     atualizarInventario(jogador);
     mensagem.innerText = `Jogador ${jogador} usou uma mina!`;
-
-    // Tenta posicionar a mina no tabuleiro do adversário
-    const adversario = jogador === 1 ? tabuleiroJogador2 : tabuleiroJogador1;
+    const adversario = jogador === 1 ? 2 : 1;
     posicionarMina(adversario);
   } else {
     mensagem.innerText = `Jogador ${jogador} não tem minas no inventário!`;
   }
 }
 
-// Função para posicionar a mina aleatoriamente no tabuleiro do adversário
-function posicionarMina(matriz) {
-  let posicionado = false;
-
-  while (!posicionado) {
-    const linha = Math.floor(Math.random() * 10);
-    const coluna = Math.floor(Math.random() * 10);
-
-    // Verifica se a célula está vazia e não foi clicada
-    if (matriz[linha][coluna] === "~") {
-      matriz[linha][coluna] = "M"; // Marca a célula como contendo uma mina
-      posicionado = true;
+// Função para posicionar a mina no tabuleiro do adversário
+function posicionarMina(jogadorAdversario) {
+    const tabuleiroAdversario = jogadorAdversario === 1 ? tabuleiroJogador1 : tabuleiroJogador2;
+    const tabuleiroVisual = jogadorAdversario === 1 ? tabuleiro1 : tabuleiro2;
+    let colocado = false;
+  
+    while (!colocado) {
+      const linha = Math.floor(Math.random() * 10);
+      const coluna = Math.floor(Math.random() * 10);
+  
+      // Verifica se a posição está livre no tabuleiro do adversário
+      if (tabuleiroAdversario[linha][coluna] === "~") {
+        tabuleiroAdversario[linha][coluna] = "M"; // Marca a célula como mina no tabuleiro lógico
+  
+        // Marca a célula visualmente como mina
+        const celula = tabuleiroVisual.querySelector(`.celula[data-linha="${linha}"][data-coluna="${coluna}"]`);
+        celula.classList.add("mina");
+        celula.style.backgroundColor = "yellow"; // A célula da mina fica amarela
+        colocado = true;
+      }
     }
   }
-}
+  
 
 // Cria o menu de compras
 function criarMenuCompras() {
@@ -212,28 +226,10 @@ function criarMenuCompras() {
   });
 }
 
-// Alterna o turno dos jogadores
-botaoTurno.addEventListener("click", () => {
-  if (turnosPerdidosJogador1 > 0) {
-    turnosPerdidosJogador1--;
-    mensagem.innerText = `Jogador 1 está perdendo um turno. ${turnosPerdidosJogador1} turnos restantes.`;
-    return;
-  }
-  
-  if (turnosPerdidosJogador2 > 0) {
-    turnosPerdidosJogador2--;
-    mensagem.innerText = `Jogador 2 está perdendo um turno. ${turnosPerdidosJogador2} turnos restantes.`;
-    return;
-  }
-  
-  turno = turno === 1 ? 2 : 1;
-  mensagem.innerText = `Turno do Jogador ${turno}`;
-});
-
-// Inicialização do Jogo
+// Inicializa os tabuleiros e o menu de compras
 inicializarTabuleiro(tabuleiro1, tabuleiroJogador1, 1);
 inicializarTabuleiro(tabuleiro2, tabuleiroJogador2, 2);
 posicionarNavios(tabuleiroJogador1);
 posicionarNavios(tabuleiroJogador2);
-criarMenuCompras(); // Cria o menu de compras
-mensagem.innerText = `Turno do Jogador ${turno}`;
+criarMenuCompras();
+atualizarMensagemTurno();
