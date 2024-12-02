@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batalha Naval</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Batalha Naval</h1>
+    <div id="jogo">
+      <div class="compras">
+        <h2>Menu de Compras</h2>
+        <table id="itens-disponiveis">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Preço</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="jogador">
+        <div id="tabuleiro-jogador1" class="tabuleiro"></div>
+        <div class="inventario" id="inventario-jogador1"></div>
+        <p id="dinheiro-jogador1">Dinheiro: 0</p>
+      </div>
+      <div class="jogador">
+        <div id="tabuleiro-jogador2" class="tabuleiro"></div>
+        <div class="inventario" id="inventario-jogador2"></div>
+        <p id="dinheiro-jogador2">Dinheiro: 0</p>
+      </div>
+    </div>
+    <p id="mensagem"></p>
+    <button id="botao-turno">Próximo Turno</button>
+  </div>
+  <script src="script.js"></script>
+  <script src="savegame.js"></script>
+</div>
+</body>
+</html>

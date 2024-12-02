@@ -1,0 +1,256 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f8ff;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#jogo {
+    display: flex;
+    gap: 20px;
+}
+
+.compras {
+    text-align: left;
+    margin-right: 20px; /* Espaçamento entre o menu de compras e os tabuleiros */
+}
+
+.jogador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabuleiro {
+    display: grid;
+    gap: 1px;
+    border: 2px solid black;
+    margin: 10px;
+  }
+  
+  .celula {
+    width: 30px;
+    height: 30px;
+    background-color: blue; /* Cor das células não clicadas */
+    border: 1px solid #aaa;
+  }
+
+.celula.acertou {
+    background-color: #ff6347;
+}
+
+.celula.errou {
+    background-color: #dcdcdc;
+}
+
+.inventario {
+    display: grid;
+    grid-template-columns: repeat(3, 40px); /* 3 slots */
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.item {
+    width: 40px;
+    height: 40px;
+    background-color: #ffd700; /* Cor para itens */
+    border: 1px solid #000;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#itens-disponiveis {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+#mensagem {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#botao-turno {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#botao-turno:hover {
+    background-color: #45a049;
+}
+
+/* Estilo para o dinheiro */
+#dinheiro-jogador1, #dinheiro-jogador2 {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f8ff;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#jogo {
+    display: flex;
+    justify-content: space-between;
+  }
+
+.compras {
+    text-align: left;
+    margin-right: 20px; /* Espaçamento entre o menu de compras e os tabuleiros */
+}
+
+#itens-disponiveis {
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#itens-disponiveis th, #itens-disponiveis td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#itens-disponiveis th, #itens-disponiveis td {
+    padding: 10px;
+  }
+
+.jogador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 2px;
+}
+
+#tabuleiro-jogador1, #tabuleiro-jogador2 {
+    width: 100%;
+    max-width: 500px;
+  }
+
+.celula {
+    width: 40px;
+    height: 40px;
+    background-color: #1e90ff;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+.celula.acertou {
+    background-color: #ff6347;
+}
+
+.celula.errou {
+    background-color: #dcdcdc;
+}
+
+.inventario {
+    display: grid;
+    grid-template-columns: repeat(3, 40px); /* 3 slots */
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.item {
+    width: 40px;
+    height: 40px;
+    background-color: #ffd700; /* Cor para itens */
+    border: 1px solid #000;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mensagem {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#botao-turno {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#botao-turno:hover {
+    background-color: #45a049;
+}
+
+/* Estilo para o dinheiro */
+#dinheiro-jogador1, #dinheiro-jogador2 {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.celula.mina {
+    background-color: #ffa500; /* Cor para minas */
+}
+
+.mina {
+    background-color: yellow; /* Cor para a célula com a mina */
+    position: relative;
+  }
+  
+  .mina::after {
+    content: "M"; /* Exibe um "M" para representar a mina */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    color: red;
+  }
+  
