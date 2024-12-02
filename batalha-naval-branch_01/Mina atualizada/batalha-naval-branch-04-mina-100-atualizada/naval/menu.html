@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu - Batalha Naval</title>
+  <link rel="stylesheet" href="menu.css"> <!-- Vincula o CSS do menu -->
+</head>
+<body>
+  <div class="container">
+    <h1>Batalha Naval</h1>
+    
+    <!-- Seção de Dificuldades -->
+    <h2>Escolha a dificuldade:</h2>
+    <div class="dificuldades">
+      <button onclick="window.location.href='index.html?dificuldade=8'">Fácil (8x8)</button>
+      <button onclick="window.location.href='index.html?dificuldade=10'">Médio (10x10)</button>
+      <button onclick="window.location.href='index.html?dificuldade=12'">Difícil (12x12)</button>
+    </div>
+    
+    <!-- Seção de Tutorial e Regras -->
+    <h2>Como Jogar</h2>
+    <div class="tutorial">
+      <p>Bem-vindo ao Batalha Naval! O objetivo do jogo é destruir todas as embarcações do adversário antes que ele destrua as suas.</p>
+      <p><strong>Regras:</strong></p>
+      <ul>
+        <li>O jogo é jogado em um tabuleiro de 8x8, 10x10 ou 12x12 (dependendo da dificuldade escolhida).</li>
+        <li>Cada jogador tem um conjunto de navios e deve tentar adivinhar as posições dos navios do adversário.</li>
+        <li>Durante seu turno, você pode atacar uma célula no tabuleiro adversário.</li>
+        <li>Se acertar um navio, a célula se torna vermelha (indicado como "acertou").</li>
+        <li>Se errar, a célula se torna cinza (indicado como "errou").</li>
+        <li>Você também tem itens especiais para usar durante o jogo: Radar, Reforço e Mina.</li>
+      </ul>
+    </div>
+    
+    <!-- Seção de Itens do Jogo -->
+    <h2>Itens Disponíveis</h2>
+    <div class="itens">
+      <p><strong>Radar:</strong> Revela uma área do tabuleiro adversário.</p>
+      <p><strong>Reforço:</strong> Aumenta o poder de ataque de seu próximo turno.</p>
+      <p><strong>Mina:</strong> Coloque minas no tabuleiro para prejudicar seu oponente.</p>
+    </div>
+    <script src="script.js"></script>
+    <script src="savegame.js"></script>
+  </div>
+</body>
+</html>
