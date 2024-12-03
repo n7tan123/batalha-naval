@@ -22,8 +22,6 @@ let turnosPerdidosJogador2 = 0;
 
 // Itens disponíveis para compra
 const itensDisponiveis = [
-  { nome: "Cura", preco: 15 },
-  { nome: "Bomba", preco: 20 },
   { nome: "Radar", preco: 25 },
   { nome: "Reforço", preco: 30 },
   { nome: "Mina", preco: 10 }
